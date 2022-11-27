@@ -62,11 +62,13 @@ INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 AUTHENTICATION_BACKENDS = [
     'django_web_app.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
     'django_structlog.middlewares.RequestMiddleware',
     'django_web_app.middlewares.RequestResponseLogMiddleware',
+    'django_web_app.middlewares.LoginRequiredMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
