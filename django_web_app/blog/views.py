@@ -115,7 +115,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
- def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         post = self.get_object()
         if request.user == post.author or request.user.is_superuser:
             logger.info('Updating post', action='post_update', user=request.user.pk)
