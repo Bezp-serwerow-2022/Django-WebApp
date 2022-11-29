@@ -68,7 +68,6 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django_structlog.middlewares.RequestMiddleware',
     'django_web_app.middlewares.RequestResponseLogMiddleware',
-    'django_web_app.middlewares.LoginRequiredMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

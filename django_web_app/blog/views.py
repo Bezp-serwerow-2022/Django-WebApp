@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -20,7 +21,7 @@ from django.db.models import Q
 import structlog
 logger = structlog.get_logger('base')
 
-
+@login_required
 def home(request):
     context = {
         'posts': Post.objects.all()
@@ -28,6 +29,7 @@ def home(request):
     logger.info("Browsing posts", action="browsing_posts", user=request.user.pk)
     return render(request, 'blog/home.html', context)
 
+@login_required
 def search(request):
     template='blog/home.html'
 
@@ -39,7 +41,7 @@ def search(request):
     logger.info("Searching", action="searching", user=request.user.pk, query=query)
     return render(request,template,context)
 
-
+@login_required
 def getfile(request):
    return serve(request, 'File')
 
@@ -58,7 +60,7 @@ class PostListView(LoginRequiredMixin, ListView):
         return super(PostListView, self).dispatch(request, *args, **kwargs)
 
 
-class UserPostListView(ListView):
+class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -73,7 +75,7 @@ class UserPostListView(ListView):
         return super(UserPostListView, self).dispatch(request, *args, **kwargs)
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
 
@@ -133,7 +135,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         logger.warning('Deleting post permission denied', action='post_delete', user=request.user.pk)
         raise PermissionDenied
 
-
+@login_required
 def about(request):
     logger.info("Reading about", action="about", user=request.user.pk)
     return render(request, 'blog/about.html', {'title': 'About'})
