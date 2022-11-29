@@ -8,11 +8,11 @@ class RequestResponseLogMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        logger.info('Request started', **self._get_request_data(request))
+        logger.info('Request Started', **self._get_request_data(request))
 
         response = self.get_response(request)
 
-        logger.info('Request completed', **self._get_response_data(response, request))
+        logger.info('Request Completed', **self._get_response_data(response, request))
 
         return response
 
