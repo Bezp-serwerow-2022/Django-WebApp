@@ -222,7 +222,7 @@ LOGIN_URL = 'login'
 AXES_COOLOFF_TIME = 1  # h
 AXES_WHITELIST_CALLABLE = lambda request, credentials: not credentials.get('username')
 AXES_LOCK_OUT_BY_USER_OR_IP = True
-AXES_FAILURE_LIMIT = 10
+AXES_FAILURE_LIMIT = 5
 AXES_ENABLED = 1
 AXES_ONLY_USER_FAILURES = 1
 
