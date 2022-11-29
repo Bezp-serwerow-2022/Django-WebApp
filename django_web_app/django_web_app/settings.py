@@ -61,7 +61,8 @@ DJANGO_APPS = (
 INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 AUTHENTICATION_BACKENDS = [
-    'django_web_app.backends.AxesBackend',
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
