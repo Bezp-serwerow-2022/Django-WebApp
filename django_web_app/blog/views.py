@@ -21,13 +21,9 @@ import structlog
 logger = structlog.get_logger('base')
 
 
-@login_required
 def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
     logger.info("Browsing posts", action="browsing_posts", user=request.user.pk)
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/base.html')
 
 @login_required
 def search(request):
